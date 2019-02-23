@@ -30,13 +30,6 @@
         "src": "./src"
     },
     "main": "./dist/index.js",
-    "files": [
-        "/dist",
-        "/src",
-        "LICENSE",
-        "package.json",
-        "README.md"
-    ],
     "types": "dist/index.d.ts",
     "dependencies": {
         "@babel/polyfill": "^7.2.5"

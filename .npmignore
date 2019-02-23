@@ -1,0 +1,8 @@
+src
+node_modules
+example
+paypal-smart-buttons.png
+.babelrc
+.eslintrc.json
+jest.config.js
+webpack.config.js
