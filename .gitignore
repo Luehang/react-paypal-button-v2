@@ -1,6 +1,4 @@
 node_modules
 example/dist
 .env
-lib
-dist
 package-lock.json
