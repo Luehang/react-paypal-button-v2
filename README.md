@@ -103,7 +103,7 @@ export default class Example Component {
         onSuccess={(details) => {
           return alert("Transaction completed by " + details.payer.name.given_name);
         }}
-        onError={(err) => {
+        catchError={(err) => {
           return alert("Transaction was unsuccessful.");
         }}
       />
@@ -172,7 +172,8 @@ export default class Example Component {
 | `amount`                     | The amount value of the transaction. | `string` |  |
 | `currency`                   | The currency of the transaction. | `string` | "USD" |
 | `onSuccess`                  | The successful completion of the transaction. `(details: object) => void` | `Function` |  |
-| `onError`                    | Transaction declined or errored. `(err: object) => void` | `Function` |  |
+| `catchError`                 | Transaction declined or errored. `(err: object) => void` | `Function` |  |
+| `onError`                    | If an error prevents buyer checkout. This error handler is a catch-all. Errors at this point are not expected to be handled beyond showing a generic error message or page. `(err: object) => void` | `Function` |  |
 | `createOrder`                | A function called when the buyer clicks the PayPal button. Calls PayPal using the `actions.order.create()` to set up the details of the transaction. `(data: object, actions: object) => void` | `Function` |  |
 | `onApprove`                  | A function called when the buyer approves the transaction on paypal.com. Calls PayPal using the `actions.order.capture()` to capture the funds from the transaction.  Optionally calls PayPal using `actions.order.get()` to get the transaction details. `(data: object, actions: object)` | `Function` |  |
 | `style`                     | PayPal Checkout offers several style options that you can use to customize the look and feel of your Smart Payment Button. You can also display multiple funding sources to the buyer, when appropriate. See more on what to input in the style object at [Customize the PayPal Buttons page](https://developer.paypal.com/docs/checkout/integration-features/customize-button/). | `object` | {} |

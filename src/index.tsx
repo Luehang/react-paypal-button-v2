@@ -9,6 +9,7 @@ export interface PayPalButtonProps {
     amount?: number|string,
     currency?: string,
     onSuccess?: Function,
+    catchError?: Function,
     onError?: Function,
     createOrder?: Function,
     onApprove?: Function,
@@ -37,8 +38,8 @@ class PayPalButton extends React.Component<PayPalButtonProps, {}> {
                 }
             })
             .catch((err) => {
-                if (this.props.onError) {
-                    return this.props.onError(err);
+                if (this.props.catchError) {
+                    return this.props.catchError(err);
                 }
             });
     }
