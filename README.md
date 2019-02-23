@@ -101,7 +101,15 @@ export default class Example Component {
       <PayPalButton
         amount="0.01"
         onSuccess={(details) => {
-          return alert("Transaction completed by " + details.payer.name.given_name);
+          alert("Transaction completed by " + details.payer.name.given_name);
+
+          // OPTIONAL: Call your server to save the transaction
+          return fetch("/paypal-transaction-complete", {
+            method: "post",
+            body: JSON.stringify({
+              orderID: data.orderID
+            })
+          });
         }}
         catchError={(err) => {
           return alert("Transaction was unsuccessful.");
@@ -138,6 +146,7 @@ export default class Example Component {
           return actions.order.capture().then(function(details) {
             // Show a success message to your buyer
             alert("Transaction completed by " + details.payer.name.given_name);
+
             // OPTIONAL: Call your server to save the transaction
             return fetch("/paypal-transaction-complete", {
               method: "post",
