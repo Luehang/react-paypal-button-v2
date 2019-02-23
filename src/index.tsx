@@ -36,10 +36,11 @@ class PayPalButton extends React.Component<PayPalButtonProps, {}> {
                     return this.props.onSuccess(details);
                 }
             })
-            // .catch((err) => {
-            //     return this.props.onError &&
-            //         this.props.onError(err);
-            // });
+            .catch((err) => {
+                if (this.props.onError) {
+                    return this.props.onError(err);
+                }
+            });
     }
 
     render() {
