@@ -3,3 +3,4 @@ example/dist
 .env
 package-lock.json
 dist
+lib

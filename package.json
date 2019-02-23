@@ -26,10 +26,10 @@
     },
     "directories": {
         "example": "./example",
-        "dist": "./dist",
+        "lib": "./lib",
         "src": "./src"
     },
-    "main": "./dist/index.js",
+    "main": "./lib/index.js",
     "types": "dist/index.d.ts",
     "dependencies": {
         "@babel/polyfill": "^7.2.5"
@@ -87,7 +87,7 @@
     "scripts": {
         "build": "rm -rf dist lib && npm run build:types && npm run build:js",
         "build:types": "tsc --emitDeclarationOnly",
-        "build:js": "babel src --out-dir dist --extensions \".tsx\" --ignore \"**/*.test.tsx\" --source-maps inline",
+        "build:js": "babel src --out-dir lib --extensions \".tsx\" --ignore \"**/*.test.tsx\" --source-maps inline",
         "build:bundle": "webpack-cli --config ./webpack.config.js --mode production",
         "start": "webpack-dev-server --config ./example/webpack.config.js --mode development --open --hot",
         "lint": "./node_modules/.bin/eslint src/ example/",
