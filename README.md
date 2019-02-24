@@ -1,4 +1,4 @@
-# react-paypal-button-v2
+# :large_blue_diamond: react-paypal-button-v2
 
 <img src="paypal-smart-buttons.png" width="200px" />
 
@@ -9,7 +9,7 @@
 <br/>
 <br/>
 <br/>
-<a href="https://luehangs.site/marketplace/mobile-development"><img src="https://luehangs.site/images/lh-blog-strip.jpg" alt="LH LABS"/></a>
+<a href="https://luehangs.site"><img src="https://luehangs.site/images/lh-blog-strip.jpg" alt="LH LABS"/></a>
 <br/>
 <br/>
 <br/>
@@ -43,7 +43,7 @@ Once you have your account set up, you will have 2 different sets of credentials
 <br/>
 <br/>
 <br/>
-<a href="https://luehangs.site/marketplace/mobile-development"><img src="https://luehangs.site/images/lh-blog-strip.jpg" alt="LH LABS"/></a>
+<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LH LABS"/></a>
 <br/>
 <br/>
 <br/>
@@ -164,7 +164,7 @@ export default class Example Component {
 
 <br/>
 <br/>
-<a href="https://luehangs.site/marketplace/mobile-development"><img src="https://luehangs.site/images/lh-blog-strip.jpg" alt="LH LABS"/></a>
+<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LH LABS"/></a>
 <br/>
 <br/>
 
@@ -184,7 +184,7 @@ export default class Example Component {
 | `catchError`                 | Transaction declined or errored. `(err: object) => void` | `Function` |  |
 | `onError`                    | If an error prevents buyer checkout. This error handler is a catch-all. Errors at this point are not expected to be handled beyond showing a generic error message or page. `(err: object) => void` | `Function` |  |
 | `createOrder`                | A function called when the buyer clicks the PayPal button. Calls PayPal using the `actions.order.create()` to set up the details of the transaction. `(data: object, actions: object) => void` | `Function` |  |
-| `onApprove`                  | A function called when the buyer approves the transaction on paypal.com. Calls PayPal using the `actions.order.capture()` to capture the funds from the transaction.  Optionally calls PayPal using `actions.order.get()` to get the transaction details. `(data: object, actions: object)` | `Function` |  |
+| `onApprove`                  | A function called when the buyer approves the transaction on paypal.com. Calls PayPal using the `actions.order.capture()` to capture the funds from the transaction.  Optionally calls PayPal using `actions.order.get()` to get the transaction details. `(data: object, actions: object) => void` | `Function` |  |
 | `style`                      | PayPal Checkout offers several style options that you can use to customize the look and feel of your Smart Payment Button. You can also display multiple funding sources to the buyer, when appropriate. See more on what to input in the style object at [Customize the PayPal Buttons page](https://developer.paypal.com/docs/checkout/integration-features/customize-button/). | `object` | {} |
 | `onShippingChange`           | A function called when the buyer initially logs into their account, submits their billing/payment information, or makes a change to their shipping address on the review your payment page. `(data: { paymentToken: string, shipping_address: object, selected_shipping_method: string }, actions: { resolve: Function, reject: Function, order: Function }) => Function` | `Function` |  |
 | `onCancel`                   | Show a cancellation page or return to the shopping cart. `(data: object) => void` | `Function` |  |
@@ -194,7 +194,7 @@ export default class Example Component {
 <br/>
 <br/>
 <br/>
-<a href="https://luehangs.site/marketplace/mobile-development"><img src="https://luehangs.site/images/lh-blog-strip.jpg" alt="LH LABS"/></a>
+<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LH LABS"/></a>
 <br/>
 <br/>
 <br/>
@@ -221,7 +221,7 @@ $ git clone https://github.com/Luehang/react-paypal-button-v2.git react-paypal-b
 ### :small_blue_diamond: 2. Install and Run
 
 ```sh
-$ cd react-paypal-button-v2/example/
+$ cd react-paypal-button-v2/
 $ npm install
 $ npm run start
 ```
@@ -229,7 +229,7 @@ $ npm run start
 <br/>
 <br/>
 <br/>
-<a href="https://luehangs.site/marketplace/mobile-development"><img src="https://luehangs.site/images/lh-blog-strip.jpg" alt="LH LABS"/></a>
+<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LH LABS"/></a>
 <br/>
 <br/>
 <br/>
