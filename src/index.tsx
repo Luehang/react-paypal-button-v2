@@ -11,7 +11,7 @@ export interface PayPalButtonProps {
     onApprove?: Function,
     style?: Function,
     options?: PaypalOptions,
-    onButtonReady: Function,
+    onButtonReady?: Function,
 }
 
 export interface PayPalButtonState {
