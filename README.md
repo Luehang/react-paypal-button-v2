@@ -50,7 +50,7 @@ Once you have your account set up, you will have 2 different sets of credentials
 
 ## :large_blue_diamond: Install
 
-1. Type in the following to the command line to install the dependency.
+##### 1. Type in the following to the command line to install the dependency. 
 
 ```sh
 $ npm install react-paypal-button-v2 --save
@@ -64,7 +64,7 @@ $ yarn add react-paypal-button-v2
 
 <br/>
 
-2. Add the PayPal script to your web page, then add your sandbox or production client-id to the script tag.  While you're testing in sandbox, you can use `client-id=sb` as a shortcut.
+##### 2. Add the PayPal script to your web page, then add your sandbox or production client-id to the script tag.  While you're testing in sandbox, you can use `client-id=sb` as a shortcut.
 
 ```html
 <script src="https://www.paypal.com/sdk/js?client-id=sb" />
