@@ -100,7 +100,7 @@ export default class Example Component {
     return (
       <PayPalButton
         amount="0.01"
-        onSuccess={(details) => {
+        onSuccess={(details, data) => {
           alert("Transaction completed by " + details.payer.name.given_name);
 
           // OPTIONAL: Call your server to save the transaction
@@ -180,7 +180,7 @@ export default class Example Component {
 |-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|---------|
 | `amount`                     | The amount value of the transaction. | `string` |  |
 | `currency`                   | The currency of the transaction. | `string` | "USD" |
-| `onSuccess`                  | The successful completion of the transaction. `(details: object) => void` | `Function` |  |
+| `onSuccess`                  | The successful completion of the transaction. `(details: object, data: object) => void` | `Function` |  |
 | `catchError`                 | Transaction declined or errored. `(err: object) => void` | `Function` |  |
 | `onError`                    | If an error prevents buyer checkout. This error handler is a catch-all. Errors at this point are not expected to be handled beyond showing a generic error message or page. `(err: object) => void` | `Function` |  |
 | `createOrder`                | A function called when the buyer clicks the PayPal button. Calls PayPal using the `actions.order.create()` to set up the details of the transaction. `(data: object, actions: object) => void` | `Function` |  |
