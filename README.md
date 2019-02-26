@@ -165,7 +165,7 @@ For alternative usage, go to the [Alternative Production Example Section](#large
 
 | Props                         | Description                                                                                                                                                                                    | Type              | Default |
 |-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|---------|
-| `amount`                     | The amount value of the transaction. | `string` |  |
+| `amount`                     | The amount value of the transaction. | `string` or `number` |  |
 | `currency`                   | The currency of the transaction. | `string` | "USD" |
 | `onSuccess`                  | The successful completion of the transaction. `(details: object, data: object) => void` | `Function` |  |
 | `catchError`                 | Transaction declined or errored. `(err: object) => void` | `Function` |  |
@@ -199,15 +199,15 @@ Option | Description | Type | Default
 `currency` | The currency of the transaction. | `string` | `"USD"`
 `merchantId` | The merchant for who you are facilitating a transaction. | `string` | automatic
 `intent` | The currency of the transaction. | `string` | `"capture"`
-`commit` | Set to `true` if the transaction is **Pay Now**, or `false` if the amount captured changes after the buyer returns to your site. | `boolean` | `true`
-`vault` | Set to `true` if the transaction sets up a billing agreement, or uses a vault. | `boolean` | `false`
+`commit` | Set to `true` if the transaction is Pay Now, or `false` if the amount captured changes after the buyer returns to your site. | `boolean` or `string` | `true`
+`vault` | Set to `true` if the transaction sets up a billing agreement, or uses a vault. | `boolean` or `string` | `false`
 `components` | A comma-separated list of components to enable. Defaults to allow Smart Payment Buttons. Other components are optional. | `string` | `buttons`
 `disableFunding` | Funding sources to disallow from showing in the Smart Payment Buttons. | `string` | none
 `disableCard` | Cards to disable from showing in the Smart Payment Buttons. | `string` | none
 `integrationDate` | The date of integration. Used to ensure backwards compatibility. | `string` | automatic
 `locale` | The locale used to localize any components. PayPal recommends not setting this parameter, as the buyer's locale is automatically set by PayPal. | `string` | automatic
 `buyerCountry` | The buyer country. For testing purposes only. | `string` | automatic
-`debug` | Enable debug mode for ease of debugging. Do not enable for production traffic. | `boolean` | `false`
+`debug` | Enable debug mode for ease of debugging. Do not enable for production traffic. | `boolean` or `string` | `false`
 
 :information_source: To see a detail and complete list of available parameters and values, go to [PayPal's Customization page](https://developer.paypal.com/docs/checkout/reference/customize-sdk/).
 

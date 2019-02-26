@@ -22,7 +22,7 @@ export interface PayPalButtonState {
 export interface PaypalOptions {
     clientId: string,
     merchantId?: string,
-    currency: number|string,
+    currency?: number|string,
     intent?: string,
     commit?: boolean|string,
     vault?: boolean|string,
