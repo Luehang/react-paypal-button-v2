@@ -22,9 +22,9 @@
 ### 4.  [Production Example](#large_blue_diamond-production-example)
 ### 5.  [API](#large_blue_diamond-api)
 ### 6.  :books: [Props](#large_blue_diamond-props)
-### 7.  [`options` Prop Fieldnames/Parameters](#small_blue_diamond-options-prop-fieldnames/parameters)
-### 8.  [Alternative Usage Example](#large_blue_diamond-usage-example)
-### 9.  [Alternative Production Example](#large_blue_diamond-usage-example)
+### 7.  [`options` Prop Fieldnames/Parameters](#small_blue_diamond-options-prop-fieldnames-or-parameters)
+### 8.  [Alternative Usage Example](#large_blue_diamond-alternative-usage-example)
+### 9.  [Alternative Production Example](#large_blue_diamond-alternative-production-example)
 ### 10. [Example Project](#large_blue_diamond-example-project)
 ### 11. [Contribute](#large_blue_diamond-contribute)
 ### 12. [License](#large_blue_diamond-license)
@@ -104,7 +104,7 @@ export default class Example Component {
 }
 ```
 
-For alternative usage, go to the [Alternative Usage Example Section](#large_blue_diamond-usage-example).
+For alternative usage, go to the [Alternative Usage Example Section](#large_blue_diamond-alternative-usage-example).
 
 <br/>
 <br/>
@@ -167,7 +167,7 @@ export default class Example Component {
 | `currency`                   | The currency of the transaction. | `string` | "USD" |
 | `onSuccess`                  | The successful completion of the transaction. `(details: object, data: object) => void` | `Function` |  |
 | `catchError`                 | Transaction declined or errored. `(err: object) => void` | `Function` |  |
-| `options`                    | You can customize the integration by passing different query parameters/fieldnames into the `options` prop object which will pass it to `https://paypal.com/sdk/js`. These parameters help PayPal decide the optimal funding sources and buttons to show to your buyers. For a list of parameters/fieldnames, go to section [`options` Prop Fieldnames/Parameters](#small_blue_diamond-options-prop-fieldnames/parameters). | `object` | `{clientId: "sb", currency: "USD"}` |
+| `options`                    | You can customize the integration by passing different query parameters/fieldnames into the `options` prop object which will pass it to `https://paypal.com/sdk/js`. These parameters help PayPal decide the optimal funding sources and buttons to show to your buyers. For a list of parameters/fieldnames, go to section [`options` Prop Fieldnames/Parameters](#small_blue_diamond-options-prop-fieldnames-or-parameters). | `object` | `{clientId: "sb", currency: "USD"}` |
 | `onButtonReady`              | A function called when PayPal's API is ready and initially before the PayPal button is about to be rendered. | `Function` |  |
 | `onError`                    | If an error prevents buyer checkout. This error handler is a catch-all. Errors at this point are not expected to be handled beyond showing a generic error message or page. `(err: object) => void` | `Function` |  |
 | `createOrder`                | A function called when the buyer clicks the PayPal button. Calls PayPal using the `actions.order.create()` to set up the details of the transaction. `(data: object, actions: object) => void` | `Function` |  |
@@ -187,7 +187,7 @@ export default class Example Component {
 <br/>
 <br/>
 
-## :small_blue_diamond: `options` Prop Fieldnames/Parameters
+## :small_blue_diamond: `options` Prop Fieldnames or Parameters
 
 You can customize the integration by passing different query parameters/fieldnames into the `options` prop object which will pass it to `https://paypal.com/sdk/js`. These parameters help PayPal decide the optimal funding sources and buttons to show to your buyers.
 
