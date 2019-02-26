@@ -152,7 +152,6 @@ PayPalButton.defaultProps = {
         clientId: "sb",
         currency: "USD"
     },
-    onButtonReady: () => {},
 }
 
 export { PayPalButton }
