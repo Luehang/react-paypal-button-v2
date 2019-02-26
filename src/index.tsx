@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 
 export interface PayPalButtonProps {
     amount?: number|string,
+    currency?: number|string,
     onSuccess?: Function,
     catchError?: Function,
     onError?: Function,
@@ -20,12 +21,18 @@ export interface PayPalButtonState {
 
 export interface PaypalOptions {
     clientId: string,
+    merchantId?: string,
     currency: string,
     intent?: string,
     commit?: string,
     vault?: string,
+    component?: string,
     disableFunding?: string,
     disableCard?: string,
+    integrationDate?: string,
+    locale?: string,
+    buyerCountry?: string,
+    debug?: boolean
 }
 
 class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState> {
@@ -40,7 +47,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
     componentDidMount() {
         if (window !== undefined && window.paypal === undefined) {
             this.addPaypalSdk();
-          }
+        }
     }
 
     createOrder(data: any, actions: any) {
@@ -48,7 +55,8 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             .create({
                 purchase_units: [{
                     amount: {
-                        currency_code: this.props.options.currency,
+                        currency_code: this.props.currency ||
+                            this.props.options.currency,
                         value: this.props.amount.toString()
                     },
                 }]
@@ -60,7 +68,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             .capture()
             .then((details) => {
                 if (this.props.onSuccess) {
-                    return this.props.onSuccess(details);
+                    return this.props.onSuccess(details, data);
                 }
             })
             .catch((err) => {
@@ -81,16 +89,18 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
         } = this.props;
         const { isSdkReady } = this.state;
 
-        if (!isSdkReady) {
+        if (!isSdkReady && window.paypal === undefined) {
             return null;
         }
 
-        const Button = window.paypal.Buttons.driver('react', {
+        const Button = window.paypal.Buttons.driver("react", {
             React,
             ReactDOM,
         });
 
-        onButtonReady();
+        if (onButtonReady) {
+            onButtonReady();
+        }
 
         return (
             <Button
@@ -116,13 +126,13 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
 
         // replacing camelCase with dashes
         Object.keys(options).forEach(k => {
-            const name = k.split(/(?=[A-Z])/).join('-').toLowerCase();
+            const name = k.split(/(?=[A-Z])/).join("-").toLowerCase();
             queryParams.push(`${name}=${options[k]}`);
         });
 
-        const script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = `https://www.paypal.com/sdk/js?${queryParams.join('&')}`;
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = `https://www.paypal.com/sdk/js?${queryParams.join("&")}`;
         script.async = true;
         script.onload = () => {
           this.setState({ isSdkReady: true });
@@ -137,12 +147,12 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
 
 // eslint-disable-next-line
 PayPalButton.defaultProps = {
-  style: {},
-  options: {
-      clientId: 'sb',
-      currency: 'USD'
-  },
-  onButtonReady: () => {},
+    style: {},
+    options: {
+        clientId: "sb",
+        currency: "USD"
+    },
+    onButtonReady: () => {},
 }
 
 export { PayPalButton }
