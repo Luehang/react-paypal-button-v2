@@ -22,17 +22,17 @@ export interface PayPalButtonState {
 export interface PaypalOptions {
     clientId: string,
     merchantId?: string,
-    currency: string,
+    currency: number|string,
     intent?: string,
-    commit?: string,
-    vault?: string,
+    commit?: boolean|string,
+    vault?: boolean|string,
     component?: string,
     disableFunding?: string,
     disableCard?: string,
     integrationDate?: string,
     locale?: string,
     buyerCountry?: string,
-    debug?: boolean
+    debug?: boolean|string
 }
 
 class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState> {
@@ -55,8 +55,11 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             .create({
                 purchase_units: [{
                     amount: {
-                        currency_code: this.props.currency ||
-                            this.props.options.currency,
+                        currency_code: this.props.currency
+                            ? this.props.currency
+                            : this.props.options && this.props.options.currency
+                            ? this.props.options.currency
+                            : "USD",
                         value: this.props.amount.toString()
                     },
                 }]
