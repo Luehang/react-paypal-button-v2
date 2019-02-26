@@ -16,6 +16,8 @@ class Example extends Component<{}, {}> {
                     onSuccess={(details) => {
                         return alert("Transaction completed by " + details.payer.name.given_name)
                     }}
+                    onButtonReady={() => console.log("Paypal Button is ready.")}
+                    options={{clientId: "sb", currency: "USD", intent: "capture", commit: "true"}}
                 />
                 {/* <PayPayButton
                     createOrder={(data, actions) => {

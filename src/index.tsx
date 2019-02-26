@@ -2,27 +2,61 @@ import "@babel/polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
 
-// eslint-disable-next-line
-const Button = paypal.Buttons.driver("react", { React, ReactDOM });
-
 export interface PayPalButtonProps {
     amount?: number|string,
-    currency?: string,
+    currency?: number|string,
     onSuccess?: Function,
     catchError?: Function,
     onError?: Function,
     createOrder?: Function,
     onApprove?: Function,
-    style?: Function
+    style?: Function,
+    options?: PaypalOptions,
+    onButtonReady?: Function,
 }
 
-class PayPalButton extends React.Component<PayPalButtonProps, {}> {
+export interface PayPalButtonState {
+    isSdkReady: boolean
+}
+
+export interface PaypalOptions {
+    clientId: string,
+    merchantId?: string,
+    currency: string,
+    intent?: string,
+    commit?: string,
+    vault?: string,
+    component?: string,
+    disableFunding?: string,
+    disableCard?: string,
+    integrationDate?: string,
+    locale?: string,
+    buyerCountry?: string,
+    debug?: boolean
+}
+
+class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState> {
+    constructor(props: PayPalButtonProps) {
+        super(props);
+
+        this.state = {
+            isSdkReady: false,
+        };
+    }
+
+    componentDidMount() {
+        if (window !== undefined && window.paypal === undefined) {
+            this.addPaypalSdk();
+        }
+    }
+
     createOrder(data: any, actions: any) {
         return actions.order
             .create({
                 purchase_units: [{
                     amount: {
-                        currency_code: this.props.currency,
+                        currency_code: this.props.currency ||
+                            this.props.options.currency,
                         value: this.props.amount.toString()
                     },
                 }]
@@ -50,8 +84,23 @@ class PayPalButton extends React.Component<PayPalButtonProps, {}> {
             onSuccess,
             createOrder,
             onApprove,
-            style
+            style,
+            onButtonReady,
         } = this.props;
+        const { isSdkReady } = this.state;
+
+        if (!isSdkReady && window.paypal === undefined) {
+            return null;
+        }
+
+        const Button = window.paypal.Buttons.driver("react", {
+            React,
+            ReactDOM,
+        });
+
+        if (onButtonReady) {
+            onButtonReady();
+        }
 
         return (
             <Button
@@ -70,12 +119,39 @@ class PayPalButton extends React.Component<PayPalButtonProps, {}> {
             />
         );
     }
+
+    private addPaypalSdk() {
+        const { options } = this.props;
+        const queryParams: string[] = [];
+
+        // replacing camelCase with dashes
+        Object.keys(options).forEach(k => {
+            const name = k.split(/(?=[A-Z])/).join("-").toLowerCase();
+            queryParams.push(`${name}=${options[k]}`);
+        });
+
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = `https://www.paypal.com/sdk/js?${queryParams.join("&")}`;
+        script.async = true;
+        script.onload = () => {
+          this.setState({ isSdkReady: true });
+        };
+        script.onerror = () => {
+            throw new Error("Paypal SDK could not be loaded.");
+        };
+    
+        document.body.appendChild(script);
+    }
 }
 
 // eslint-disable-next-line
 PayPalButton.defaultProps = {
-  currency: "USD",
-  style: {}
+    style: {},
+    options: {
+        clientId: "sb",
+        currency: "USD"
+    },
 }
 
 export { PayPalButton }
