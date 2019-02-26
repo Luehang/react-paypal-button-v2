@@ -147,6 +147,8 @@ export default class Example Component {
 }
 ```
 
+For alternative usage, go to the [Alternative Production Example Section](#large_blue_diamond-alternative-production-example).
+
 <br/>
 <br/>
 <a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LH LABS"/></a>
