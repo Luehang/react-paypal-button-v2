@@ -19,11 +19,15 @@
 ### 1.  [Prerequisites](#large_blue_diamond-prerequisites)
 ### 2.  [Install](#large_blue_diamond-install)
 ### 3.  [Usage Example](#large_blue_diamond-usage-example)
-### 4.  [API](#large_blue_diamond-api)
-### 5.  :books: [Props](#large_blue_diamond-props)
-### 6.  [Example Project](#large_blue_diamond-example-project)
-### 7.  [Contribute](#large_blue_diamond-contribute)
-### 8.  [License](#large_blue_diamond-license)
+### 4.  [Production Example](#large_blue_diamond-production-example)
+### 5.  [API](#large_blue_diamond-api)
+### 6.  :books: [Props](#large_blue_diamond-props)
+### 7.  [`options` Prop Fieldnames/Parameters](#small_blue_diamond-options-prop-fieldnames/parameters)
+### 8.  [Alternative Usage Example](#large_blue_diamond-usage-example)
+### 9.  [Alternative Production Example](#large_blue_diamond-usage-example)
+### 10. [Example Project](#large_blue_diamond-example-project)
+### 11. [Contribute](#large_blue_diamond-contribute)
+### 12. [License](#large_blue_diamond-license)
 
 <br/>
 <br/>
@@ -50,7 +54,7 @@ Once you have your account set up, you will have 2 different sets of credentials
 
 ## :large_blue_diamond: Install
 
-##### 1. Type in the following to the command line to install the dependency. 
+Type in the following to the command line to install the dependency. 
 
 ```sh
 $ npm install react-paypal-button-v2 --save
@@ -63,23 +67,6 @@ $ yarn add react-paypal-button-v2
 ```
 
 <br/>
-
-##### 2. Add the PayPal script to your web page, then add your sandbox or production client-id to the script tag.  While you're testing in sandbox, you can use `client-id=sb` as a shortcut.
-
-```html
-<script src="https://www.paypal.com/sdk/js?client-id=sb" />
-```
-
-### Query Parameters
-
-Option | Description | Default
------- | ------ | ------
-`client-id` | Your PayPal REST client ID. While you're testing in sandbox, you can use `client-id=sb` as a shortcut. | required
-`currency` | The currency of the transaction. | `USD`
-
-To see a complete list of available parameters and values, go to [PayPal's Customization page](https://developer.paypal.com/docs/checkout/reference/customize-sdk/).
-
-<br/>
 <br/>
 <br/>
 
@@ -90,7 +77,7 @@ To see a complete list of available parameters and values, go to [PayPal's Custo
 
 ## :large_blue_diamond: Usage Example
 
-Add an ``import`` to the top of the file.  At minimal, declare the ``PayPalButton`` component in the ``render()`` method providing a number for the `amount` prop and a function to the `onSuccess` prop. Optional, but also add an error function to the `onError` prop.
+Add an ``import`` to the top of the file.  **At minimal**, declare the ``PayPalButton`` component in the ``render()`` method providing a string for the `amount` prop and a function to the `onSuccess` prop.
 
 ```javascript
 import { PayPalButton } from "react-paypal-button-v2";
@@ -111,8 +98,48 @@ export default class Example Component {
             })
           });
         }}
-        catchError={(err) => {
-          return alert("Transaction was unsuccessful.");
+      />
+    );
+  }
+}
+```
+
+For alternative usage, go to the [Alternative Usage Example Section](#large_blue_diamond-usage-example).
+
+<br/>
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+<br/>
+
+## :large_blue_diamond: Production Example
+
+**At minimal**, declare the `options` prop and include your business **production Client ID** in the `clientId` fieldname value.
+
+```javascript
+import { PayPalButton } from "react-paypal-button-v2";
+
+export default class Example Component {
+  render() {
+    return (
+      <PayPalButton
+        amount="0.01"
+        onSuccess={(details, data) => {
+          alert("Transaction completed by " + details.payer.name.given_name);
+
+          // OPTIONAL: Call your server to save the transaction
+          return fetch("/paypal-transaction-complete", {
+            method: "post",
+            body: JSON.stringify({
+              orderId: data.orderID
+            })
+          });
+        }}
+        options={{
+          clientId: "PRODUCTION_CLIENT_ID"
         }}
       />
     );
@@ -121,8 +148,80 @@ export default class Example Component {
 ```
 
 <br/>
-OR
 <br/>
+<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LH LABS"/></a>
+<br/>
+<br/>
+
+## :large_blue_diamond: API
+
+``<PayPalButton />`` component accepts the following props...
+
+<br/>
+
+# :large_blue_diamond: Props
+
+| Props                         | Description                                                                                                                                                                                    | Type              | Default |
+|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|---------|
+| `amount`                     | The amount value of the transaction. | `string` |  |
+| `currency`                   | The currency of the transaction. | `string` | "USD" |
+| `onSuccess`                  | The successful completion of the transaction. `(details: object, data: object) => void` | `Function` |  |
+| `catchError`                 | Transaction declined or errored. `(err: object) => void` | `Function` |  |
+| `options`                    | You can customize the integration by passing different query parameters/fieldnames into the `options` prop object which will pass it to `https://paypal.com/sdk/js`. These parameters help PayPal decide the optimal funding sources and buttons to show to your buyers. For a list of parameters/fieldnames, go to section [`options` Prop Fieldnames/Parameters](#small_blue_diamond-options-prop-fieldnames/parameters). | `object` | `{clientId: "sb", currency: "USD"}` |
+| `onButtonReady`              | A function called when PayPal's API is ready and initially before the PayPal button is about to be rendered. | `Function` |  |
+| `onError`                    | If an error prevents buyer checkout. This error handler is a catch-all. Errors at this point are not expected to be handled beyond showing a generic error message or page. `(err: object) => void` | `Function` |  |
+| `createOrder`                | A function called when the buyer clicks the PayPal button. Calls PayPal using the `actions.order.create()` to set up the details of the transaction. `(data: object, actions: object) => void` | `Function` |  |
+| `onApprove`                  | A function called when the buyer approves the transaction on paypal.com. Calls PayPal using the `actions.order.capture()` to capture the funds from the transaction.  Optionally calls PayPal using `actions.order.get()` to get the transaction details. `(data: object, actions: object) => void` | `Function` |  |
+| `style`                      | PayPal Checkout offers several style options that you can use to customize the look and feel of your Smart Payment Button. You can also display multiple funding sources to the buyer, when appropriate. See more on what to input in the style object at [Customize the PayPal Buttons page](https://developer.paypal.com/docs/checkout/integration-features/customize-button/). | `object` | {} |
+| `onShippingChange`           | A function called when the buyer initially logs into their account, submits their billing/payment information, or makes a change to their shipping address on the review your payment page. `(data: { paymentToken: string, shipping_address: object, selected_shipping_method: string }, actions: { resolve: Function, reject: Function, order: Function }) => Function` | `Function` |  |
+| `onCancel`                   | Show a cancellation page or return to the shopping cart. `(data: object) => void` | `Function` |  |
+
+:information_source: Learn more about the integration proccess along with more props and advance use cases starting at [PayPal's docs](https://developer.paypal.com/docs/checkout/integrate/).
+
+<br/>
+<br/>
+<br/>
+
+---
+<br/>
+<br/>
+<br/>
+
+## :small_blue_diamond: `options` Prop Fieldnames/Parameters
+
+You can customize the integration by passing different query parameters/fieldnames into the `options` prop object which will pass it to `https://paypal.com/sdk/js`. These parameters help PayPal decide the optimal funding sources and buttons to show to your buyers.
+
+Option | Description | Type | Default
+------ | ------ | ------ | ------
+`clientId` | Your PayPal REST client ID. While you're testing in sandbox, you can use `client-id=sb` as a shortcut. | `string` | `"sb"`
+`currency` | The currency of the transaction. | `string` | `"USD"`
+`merchantId` | The merchant for who you are facilitating a transaction. | `string` | automatic
+`intent` | The currency of the transaction. | `string` | `"capture"`
+`commit` | Set to `true` if the transaction is **Pay Now**, or `false` if the amount captured changes after the buyer returns to your site. | `boolean` | `true`
+`vault` | Set to `true` if the transaction sets up a billing agreement, or uses a vault. | `boolean` | `false`
+`components` | A comma-separated list of components to enable. Defaults to allow Smart Payment Buttons. Other components are optional. | `string` | `buttons`
+`disableFunding` | Funding sources to disallow from showing in the Smart Payment Buttons. | `string` | none
+`disableCard` | Cards to disable from showing in the Smart Payment Buttons. | `string` | none
+`integrationDate` | The date of integration. Used to ensure backwards compatibility. | `string` | automatic
+`locale` | The locale used to localize any components. PayPal recommends not setting this parameter, as the buyer's locale is automatically set by PayPal. | `string` | automatic
+`buyerCountry` | The buyer country. For testing purposes only. | `string` | automatic
+`debug` | Enable debug mode for ease of debugging. Do not enable for production traffic. | `boolean` | `false`
+
+:information_source: To see a detail and complete list of available parameters and values, go to [PayPal's Customization page](https://developer.paypal.com/docs/checkout/reference/customize-sdk/).
+
+<br/>
+<br/>
+<br/>
+<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LH LABS"/></a>
+<br/>
+<br/>
+<br/>
+
+## :large_blue_diamond: Alternative Usage Example
+
+<br/>
+
+### Usage Example 1
 
 ```javascript
 import { PayPalButton } from "react-paypal-button-v2";
@@ -163,33 +262,103 @@ export default class Example Component {
 ```
 
 <br/>
+
+### Usage Example 2
+
+Add the PayPal script to your web page, then add your sandbox or production `client-id` to the script tag.  While you're testing in sandbox, you can use `client-id=sb` as a shortcut.
+
+```html
+<script src="https://www.paypal.com/sdk/js?client-id=sb" />
+```
+
+#### Query Parameters
+
+Option | Description | Type | Default
+------ | ------ | ------ | ------
+`client-id` | Your PayPal REST client ID. While you're testing in sandbox, you can use `client-id=sb` as a shortcut. | `string` | `"sb"`
+`currency` | The currency of the transaction. | `string` | `"USD"`
+
+To see a detail and complete list of available parameters and values, go to [PayPal's Customization page](https://developer.paypal.com/docs/checkout/reference/customize-sdk/).
+
 <br/>
-<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LH LABS"/></a>
+
+```javascript
+import { PayPalButton } from "react-paypal-button-v2";
+
+export default class Example Component {
+  render() {
+    return (
+      <PayPalButton
+        amount="0.01"
+        onSuccess={(details, data) => {
+          alert("Transaction completed by " + details.payer.name.given_name);
+
+          // OPTIONAL: Call your server to save the transaction
+          return fetch("/paypal-transaction-complete", {
+            method: "post",
+            body: JSON.stringify({
+              orderID: data.orderID
+            })
+          });
+        }}
+      />
+    );
+  }
+}
+```
+
 <br/>
 <br/>
+<br/>
 
-## :large_blue_diamond: API
+---
+<br/>
+<br/>
+<br/>
 
-``<PayPalButton />`` component accepts the following props...
+## :large_blue_diamond: Alternative Production Example
+
+**At minimal**, add the **PayPal script** to your web page, then add your **production** `client-id` to the script tag.
+
+```html
+<script src="https://www.paypal.com/sdk/js?client-id=PRODUCTION_CLIENT_ID" />
+```
+
+#### Query Parameters
+
+Option | Description | Type | Default
+------ | ------ | ------ | ------
+`client-id` | Your PayPal REST client ID. | `string` | `"sb"`
+`currency` | The currency of the transaction. | `string` | `"USD"`
+
+To see a detail and complete list of available parameters and values, go to [PayPal's Customization page](https://developer.paypal.com/docs/checkout/reference/customize-sdk/).
 
 <br/>
 
-# :large_blue_diamond: Props
+```javascript
+import { PayPalButton } from "react-paypal-button-v2";
 
-| Props                         | Description                                                                                                                                                                                    | Type              | Default |
-|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|---------|
-| `amount`                     | The amount value of the transaction. | `string` |  |
-| `currency`                   | The currency of the transaction. | `string` | "USD" |
-| `onSuccess`                  | The successful completion of the transaction. `(details: object, data: object) => void` | `Function` |  |
-| `catchError`                 | Transaction declined or errored. `(err: object) => void` | `Function` |  |
-| `onError`                    | If an error prevents buyer checkout. This error handler is a catch-all. Errors at this point are not expected to be handled beyond showing a generic error message or page. `(err: object) => void` | `Function` |  |
-| `createOrder`                | A function called when the buyer clicks the PayPal button. Calls PayPal using the `actions.order.create()` to set up the details of the transaction. `(data: object, actions: object) => void` | `Function` |  |
-| `onApprove`                  | A function called when the buyer approves the transaction on paypal.com. Calls PayPal using the `actions.order.capture()` to capture the funds from the transaction.  Optionally calls PayPal using `actions.order.get()` to get the transaction details. `(data: object, actions: object) => void` | `Function` |  |
-| `style`                      | PayPal Checkout offers several style options that you can use to customize the look and feel of your Smart Payment Button. You can also display multiple funding sources to the buyer, when appropriate. See more on what to input in the style object at [Customize the PayPal Buttons page](https://developer.paypal.com/docs/checkout/integration-features/customize-button/). | `object` | {} |
-| `onShippingChange`           | A function called when the buyer initially logs into their account, submits their billing/payment information, or makes a change to their shipping address on the review your payment page. `(data: { paymentToken: string, shipping_address: object, selected_shipping_method: string }, actions: { resolve: Function, reject: Function, order: Function }) => Function` | `Function` |  |
-| `onCancel`                   | Show a cancellation page or return to the shopping cart. `(data: object) => void` | `Function` |  |
+export default class Example Component {
+  render() {
+    return (
+      <PayPalButton
+        amount="0.01"
+        onSuccess={(details, data) => {
+          alert("Transaction completed by " + details.payer.name.given_name);
 
-:information_source: Learn more about the integration proccess along with more props and advance use cases starting at [PayPal's docs](https://developer.paypal.com/docs/checkout/integrate/).
+          // OPTIONAL: Call your server to save the transaction
+          return fetch("/paypal-transaction-complete", {
+            method: "post",
+            body: JSON.stringify({
+              orderID: data.orderID
+            })
+          });
+        }}
+      />
+    );
+  }
+}
+```
 
 <br/>
 <br/>
