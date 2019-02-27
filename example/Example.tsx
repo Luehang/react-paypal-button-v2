@@ -1,24 +1,36 @@
 import React, { Component } from "react";
 import { PayPalButton } from "../src/index";
 
-class Example extends Component<{}, {}> {
+class Example extends Component<any, any> {
+    constructor(props: any) {
+        super(props);
+        this.state = { showLoading: true };
+    }
+
     render() {
         const buttonStyles = {
             textAlign: "center",
             padding: "1rem",
             margin: "1rem"
         }
+
+        const { showLoading } = this.state;
+
         return (
             <div style={buttonStyles as any}>
                 <h3>Try me out</h3>
+
+                {showLoading ? <span>Loading Button...</span> : null}
+
                 <PayPalButton
                     amount="0.01"
                     onSuccess={(details) => {
                         return alert("Transaction completed by " + details.payer.name.given_name)
                     }}
-                    onButtonReady={() => console.log("Paypal Button is ready.")}
-                    options={{clientId: "sb", currency: "USD", intent: "capture", commit: true}}
+                    onButtonReady={() => this.setState({ showLoading: false })}
+                    options={{clientId: "sb"}}
                 />
+
                 {/* <PayPayButton
                     createOrder={(data, actions) => {
                         return actions.order.create({
