@@ -1,6 +1,7 @@
 import "@babel/polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 
 export interface PayPalButtonProps {
     amount?: number|string,
@@ -10,7 +11,7 @@ export interface PayPalButtonProps {
     onError?: Function,
     createOrder?: Function,
     onApprove?: Function,
-    style?: Function,
+    style?: object,
     options?: PaypalOptions,
     onButtonReady?: Function,
 }
@@ -20,7 +21,7 @@ export interface PayPalButtonState {
 }
 
 export interface PaypalOptions {
-    clientId: string,
+    clientId?: string,
     merchantId?: string,
     currency?: number|string,
     intent?: string,
@@ -36,6 +37,59 @@ export interface PaypalOptions {
 }
 
 class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState> {
+    static propTypes = {
+        amount: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string,
+        ]),
+        currency: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string,
+        ]),
+        onSuccess: PropTypes.func,
+        catchError: PropTypes.func,
+        onError: PropTypes.func,
+        createOrder: PropTypes.func,
+        onApprove: PropTypes.func,
+        style: PropTypes.object,
+        options: PropTypes.shape({
+            clientId: PropTypes.string,
+            merchantId: PropTypes.string,
+            currency: PropTypes.oneOfType([
+                PropTypes.number,
+                PropTypes.string,
+            ]),
+            intent: PropTypes.string,
+            commit: PropTypes.oneOfType([
+                PropTypes.bool,
+                PropTypes.string
+            ]),
+            vault: PropTypes.oneOfType([
+                PropTypes.bool,
+                PropTypes.string
+            ]),
+            component: PropTypes.string,
+            disableFunding: PropTypes.string,
+            disableCard: PropTypes.string,
+            integrationDate: PropTypes.string,
+            locale: PropTypes.string,
+            buyerCountry: PropTypes.string,
+            debug: PropTypes.oneOfType([
+                PropTypes.bool,
+                PropTypes.string
+            ])
+        }),
+        onButtonReady: PropTypes.func,
+    }
+
+    static defaultProps = {
+        style: {},
+        options: {
+            clientId: "sb",
+            currency: "USD"
+        },
+    }
+
     constructor(props: PayPalButtonProps) {
         super(props);
 
@@ -157,13 +211,4 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
     }
 }
 
-// eslint-disable-next-line
-PayPalButton.defaultProps = {
-    style: {},
-    options: {
-        clientId: "sb",
-        currency: "USD"
-    },
-}
-
-export { PayPalButton }
+export { PayPalButton };
