@@ -79,6 +79,8 @@ $ yarn add react-paypal-button-v2
 
 Add an ``import`` to the top of the file.  **At minimal**, declare the ``PayPalButton`` component in the ``render()`` method providing a string for the `amount` prop and a function to the `onSuccess` prop.
 
+> If you like [`react-paypal-button-v2`](https://github.com/Luehang/react-paypal-button-v2), please be sure to give it a star at [GitHub](https://github.com/Luehang/react-paypal-button-v2).
+
 ```javascript
 import { PayPalButton } from "react-paypal-button-v2";
 
@@ -118,6 +120,8 @@ For alternative usage, go to the [Alternative Usage Example Section](#large_blue
 ## :large_blue_diamond: Production Example
 
 **At minimal**, declare the `options` prop and include your business **production Client ID** in the `clientId` fieldname value.
+
+> If you like [`react-paypal-button-v2`](https://github.com/Luehang/react-paypal-button-v2), please be sure to give it a star at [GitHub](https://github.com/Luehang/react-paypal-button-v2).
 
 ```javascript
 import { PayPalButton } from "react-paypal-button-v2";
