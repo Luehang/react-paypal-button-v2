@@ -4,6 +4,8 @@
 
 > An easy and simple to use React button component to implement PayPal&#39;s Checkout with Smart Payment Buttons V2 (Version 2).
 
+> Check out the [docs](https://luehangs.site/lue_hang/projects/react-paypal-button-v2) for a complete documentation.
+
 :information_source: This PayPal Checkout integration uses the PayPal JavaScript SDK.  Starting at the beginning of February 2019, all new users must use PayPal's version 2 integration as version 1 is now depreciated.
 
 <br/>
@@ -79,7 +81,7 @@ $ yarn add react-paypal-button-v2
 
 Add an ``import`` to the top of the file.  **At minimal**, declare the ``PayPalButton`` component in the ``render()`` method providing a string for the `amount` prop and a function to the `onSuccess` prop.
 
-> If you like [`react-paypal-button-v2`](https://github.com/Luehang/react-paypal-button-v2), please be sure to give it a star at [GitHub](https://github.com/Luehang/react-paypal-button-v2).
+> If you like [`react-paypal-button-v2`](https://github.com/Luehang/react-paypal-button-v2), please be sure to give it a star at [GitHub](https://github.com/Luehang/react-paypal-button-v2). Thanks.
 
 ```javascript
 import { PayPalButton } from "react-paypal-button-v2";
@@ -121,7 +123,7 @@ For alternative usage, go to the [Alternative Usage Example Section](#large_blue
 
 **At minimal**, declare the `options` prop and include your business **production Client ID** in the `clientId` fieldname value.
 
-> If you like [`react-paypal-button-v2`](https://github.com/Luehang/react-paypal-button-v2), please be sure to give it a star at [GitHub](https://github.com/Luehang/react-paypal-button-v2).
+> If you like [`react-paypal-button-v2`](https://github.com/Luehang/react-paypal-button-v2), please be sure to give it a star at [GitHub](https://github.com/Luehang/react-paypal-button-v2). Thanks.
 
 ```javascript
 import { PayPalButton } from "react-paypal-button-v2";
