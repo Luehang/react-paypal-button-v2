@@ -104,5 +104,5 @@
         "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
         "preinstall": "rm -rf dist"
     },
-    "license": "Apache 2.0"
+    "license": "MIT"
 }
