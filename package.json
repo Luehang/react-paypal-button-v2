@@ -93,7 +93,7 @@
         "webpack-dev-server": "^3.1.14"
     },
     "scripts": {
-        "build": "rm -rf dist lib && npm run build:types && npm run build:js",
+        "build": "npm run build:types && npm run build:js",
         "build:types": "tsc --emitDeclarationOnly",
         "build:js": "babel src --out-dir lib --extensions \".tsx\" --ignore \"**/*.test.tsx\" --source-maps inline",
         "build:bundle": "webpack-cli --config ./webpack.config.js --mode production",
