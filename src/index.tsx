@@ -14,6 +14,7 @@ export interface PayPalButtonProps {
     style?: object,
     options?: PaypalOptions,
     onButtonReady?: Function,
+    onShippingChange?: Function,
 }
 
 export interface PayPalButtonState {
@@ -152,6 +153,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             createOrder,
             onApprove,
             style,
+            onShippingChange,
         } = this.props;
         const { isSdkReady } = this.state;
 
