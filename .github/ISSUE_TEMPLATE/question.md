@@ -8,8 +8,8 @@ assignees: ''
 ---
 
 **To Do First**
-- [ ] Take a look in the [README](https://github.com/Luehang/node-delete-partial/blob/master/README.md)
-- [ ] Take a look in the [docs](https://luehangs.site/lue_hang/projects/node-delete-partial)
+- [ ] Take a look in the [README](https://github.com/Luehang/react-paypal-button-v2/blob/master/README.md)
+- [ ] Take a look in the [docs](https://luehangs.site/lue_hang/projects/react-paypal-button-v2)
 
 **Ask your Question**
 <!--ask your question-->
