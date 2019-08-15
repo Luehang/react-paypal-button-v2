@@ -100,12 +100,14 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
 
     componentDidMount() {
         if (
+            typeof window !== "undefined" &&
             window !== undefined &&
             window.paypal === undefined
         ) {
             this.addPaypalSdk();
         }
         else if (
+            typeof window !== "undefined" &&
             window !== undefined &&
             window.paypal !== undefined &&
             this.props.onButtonReady
@@ -155,7 +157,10 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
         } = this.props;
         const { isSdkReady } = this.state;
 
-        if (!isSdkReady && window.paypal === undefined) {
+        if (
+            !isSdkReady &&
+            (typeof window === "undefined" || window.paypal === undefined)
+        ) {
             return null;
         }
 
