@@ -49,6 +49,20 @@ class Example extends Component<any, any> {
                         });
                     }}
                 /> */}
+
+                {/* <PayPalButton
+                    createSubscription={(data, actions) => {
+                        return actions.subscription.create({
+                            plan_id: "P-XXXXXXXXXXXXXXXXXXXXXXXX",
+                            auto_renewal: true
+                        });
+                    }}
+                    onApprove={(data, actions) => {
+                        console.log('created subscription:', data.orderID, data.subscriptionID);
+                        alert('Subscription created');
+                    }}
+                    options={{clientId: "sb", vault: true}}
+                /> */}
             </div>
         );
     }

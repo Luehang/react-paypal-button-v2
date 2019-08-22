@@ -316,6 +316,49 @@ export default class Example Component {
 ```
 
 <br/>
+
+### Usage Example 3 (Subscription)
+
+To create subscriptions you must first [create a product](https://developer.paypal.com/docs/subscriptions/integrate/#2-create-a-product) and [create a plan](https://developer.paypal.com/docs/subscriptions/integrate/#3-create-a-plan) using the PayPal REST API.
+
+<br/>
+
+```javascript
+import { PayPalButton } from "react-paypal-button-v2";
+
+export default class Example Component {
+  render() {
+    return (
+      <PayPalButton
+        options={{vault: true}}
+        createSubscription={(data, actions) => {
+          return actions.subscription.create({
+            plan_id: 'P-XXXXXXXXXXXXXXXXXXXXXXXX'
+          });
+        }}
+        onApprove={(data, actions) => {
+          // Capture the funds from the transaction
+          return actions.subscription.get().then(function(details) {
+            // Show a success message to your buyer
+            alert("Subscription completed");
+
+            // OPTIONAL: Call your server to save the subscription
+            return fetch("/paypal-subscription-complete", {
+              method: "post",
+              body: JSON.stringify({
+                orderID: data.orderID,
+                subscriptionID: data.subscriptionID
+              })
+            });
+          });
+        }}
+      />
+    );
+  }
+}
+```
+
+<br/>
 <br/>
 <br/>
 
