@@ -43,7 +43,8 @@
     "main": "./lib/index.js",
     "types": "dist/index.d.ts",
     "dependencies": {
-        "prop-types": "^15.7.2"
+        "prop-types": "^15.7.2",
+        "rimraf": "^3.0.0"
     },
     "peerDependencies": {
         "react": "^0.14.6 || 15.x.x || 16.x.x",
@@ -87,7 +88,6 @@
         "path": "^0.12.7",
         "react": "^16.8.2",
         "react-dom": "^16.8.2",
-        "rimraf": "^3.0.0",
         "source-map-loader": "^0.2.4",
         "style-loader": "^0.23.1",
         "typescript": "^3.3.3",
