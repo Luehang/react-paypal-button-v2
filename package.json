@@ -43,7 +43,6 @@
     "main": "./lib/index.js",
     "types": "dist/index.d.ts",
     "dependencies": {
-        "@babel/polyfill": "^7.2.5",
         "prop-types": "^15.7.2"
     },
     "peerDependencies": {
