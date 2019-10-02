@@ -14,6 +14,7 @@ export interface PayPalButtonProps {
     style?: object,
     options?: PaypalOptions,
     onButtonReady?: Function,
+    shippingPreference?: 'NO_SHIPPING' | 'GET_FROM_FILE' | 'SET_PROVIDED_ADDRESS'
 }
 
 export interface PayPalButtonState {
@@ -115,19 +116,26 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
     }
 
     createOrder(data: any, actions: any) {
-        return actions.order
-            .create({
-                purchase_units: [{
-                    amount: {
-                        currency_code: this.props.currency
-                            ? this.props.currency
-                            : this.props.options && this.props.options.currency
-                            ? this.props.options.currency
-                            : "USD",
-                        value: this.props.amount.toString()
-                    },
-                }]
-            });
+
+        const { currency, options, amount, shippingPreference } = this.props;
+
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                currency_code: currency
+                  ? currency
+                  : options && options.currency
+                  ? options.currency
+                  : 'USD',
+                value: amount.toString()
+              }
+            }
+          ],
+          application_context: {
+            shipping_preference: shippingPreference
+          }
+        });
     }
 
     onApprove(data: any, actions: any) {
