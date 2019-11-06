@@ -24,11 +24,11 @@ class Example extends Component<any, any> {
 
                 <PayPalButton
                     amount="0.01"
+                    // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                     onSuccess={(details) => {
                         return alert("Transaction completed by " + details.payer.name.given_name)
                     }}
                     onButtonReady={() => this.setState({ showLoading: false })}
-                    options={{clientId: "sb"}}
                 />
 
                 {/* <PayPayButton
@@ -38,7 +38,10 @@ class Example extends Component<any, any> {
                                 amount: {
                                 value: "0.01"
                                 }
-                            }]
+                            }],
+                            // application_context: {
+                            //   shipping_preference: "NO_SHIPPING" // default is "GET_FROM_FILE"
+                            // }
                         });
                     }}
                     onApprove={(data, actions) => {
