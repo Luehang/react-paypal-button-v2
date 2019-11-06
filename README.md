@@ -91,6 +91,7 @@ export default class Example Component {
     return (
       <PayPalButton
         amount="0.01"
+        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
         onSuccess={(details, data) => {
           alert("Transaction completed by " + details.payer.name.given_name);
 
@@ -133,6 +134,7 @@ export default class Example Component {
     return (
       <PayPalButton
         amount="0.01"
+        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
         onSuccess={(details, data) => {
           alert("Transaction completed by " + details.payer.name.given_name);
 
@@ -173,6 +175,7 @@ For alternative usage, go to the [Alternative Production Example Section](#large
 |-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|---------|
 | `amount`                     | The amount value of the transaction. | `string` or `number` |  |
 | `currency`                   | The currency of the transaction. | `string` | "USD" |
+| `shippingPreference`         | The shipping preference: Displays the shipping address to the customer. Enables the customer to choose an address on the PayPal site. Restricts the customer from changing the address during the payment-approval process. Options: `NO_SHIPPING`, `GET_FROM_FILE`, `SET_PROVIDED_ADDRESS` | `string` | "NO_SHIPPING" |
 | `onSuccess`                  | The successful completion of the transaction. `(details: object, data: object) => void` | `Function` |  |
 | `catchError`                 | Transaction declined or errored. `(err: object) => void` | `Function` |  |
 | `options`                    | You can customize the integration by passing different query parameters/fieldnames into the `options` prop object which will pass it to `https://paypal.com/sdk/js`. These parameters help PayPal decide the optimal funding sources and buttons to show to your buyers.  **Before configuring the `options` prop, make sure you haven't manually added the script tag for `https://paypal.com/sdk/js`.** For a list of parameters/fieldnames, go to section [`options` Prop Fieldnames/Parameters](#small_blue_diamond-options-prop-fieldnames-or-parameters). | `object` | `{clientId: "sb", currency: "USD"}` |
@@ -245,7 +248,10 @@ export default class Example Component {
                 currency_code: "USD",
                 value: "0.01"
               }
-            }]
+            }],
+            // application_context: {
+            //   shipping_preference: "NO_SHIPPING" // default is "GET_FROM_FILE"
+            // }
           });
         }}
         onApprove={(data, actions) => {
@@ -298,6 +304,7 @@ export default class Example Component {
     return (
       <PayPalButton
         amount="0.01"
+        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
         onSuccess={(details, data) => {
           alert("Transaction completed by " + details.payer.name.given_name);
 
@@ -351,6 +358,7 @@ export default class Example Component {
     return (
       <PayPalButton
         amount="0.01"
+        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
         onSuccess={(details, data) => {
           alert("Transaction completed by " + details.payer.name.given_name);
 
