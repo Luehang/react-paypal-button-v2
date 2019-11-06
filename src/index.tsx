@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 export interface PayPalButtonProps {
     amount?: number|string,
     currency?: number|string,
+    shippingPreference?: "NO_SHIPPING" | "GET_FROM_FILE" | "SET_PROVIDED_ADDRESS",
     onSuccess?: Function,
     catchError?: Function,
     onError?: Function,
@@ -13,7 +14,6 @@ export interface PayPalButtonProps {
     style?: object,
     options?: PaypalOptions,
     onButtonReady?: Function,
-    shippingPreference?: 'NO_SHIPPING' | 'GET_FROM_FILE' | 'SET_PROVIDED_ADDRESS'
 }
 
 export interface PayPalButtonState {
@@ -46,6 +46,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             PropTypes.number,
             PropTypes.string,
         ]),
+        shippingPreference: PropTypes.string,
         onSuccess: PropTypes.func,
         catchError: PropTypes.func,
         onError: PropTypes.func,
@@ -88,6 +89,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             clientId: "sb",
             currency: "USD"
         },
+        shippingPreference: "GET_FROM_FILE",
     }
 
     constructor(props: PayPalButtonProps) {
@@ -128,7 +130,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
                   ? currency
                   : options && options.currency
                   ? options.currency
-                  : 'USD',
+                  : "USD",
                 value: amount.toString()
               }
             }
