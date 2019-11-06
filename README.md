@@ -204,7 +204,7 @@ Option | Description | Type | Default
 `clientId` | Your PayPal REST client ID. While you're testing in sandbox, you can use `client-id=sb` as a shortcut. | `string` | `"sb"`
 `currency` | The currency of the transaction. | `string` | `"USD"`
 `merchantId` | The merchant for who you are facilitating a transaction. | `string` | automatic
-`intent` | The currency of the transaction. | `string` | `"capture"`
+`intent` | The intent of the payment. | `string` | `"capture"`
 `commit` | Set to `true` if the transaction is Pay Now, or `false` if the amount captured changes after the buyer returns to your site. | `boolean` or `string` | `true`
 `vault` | Set to `true` if the transaction sets up a billing agreement, or uses a vault. | `boolean` or `string` | `false`
 `components` | A comma-separated list of components to enable. Defaults to allow Smart Payment Buttons. Other components are optional. | `string` | `buttons`
