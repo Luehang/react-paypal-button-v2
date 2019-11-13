@@ -111,6 +111,8 @@ export default class Example Component {
 
 For alternative usage, go to the [Alternative Usage Example Section](#large_blue_diamond-alternative-usage-example).
 
+To create subscriptions, go to the [Subscriptions Example Section](#subscription-example-usage).
+
 <br/>
 <br/>
 <br/>
@@ -156,6 +158,8 @@ export default class Example Component {
 ```
 
 For alternative usage, go to the [Alternative Production Example Section](#large_blue_diamond-alternative-production-example).
+
+To create subscriptions, go to the [Subscriptions Example Section](#subscription-example-usage).
 
 <br/>
 <br/>
@@ -324,7 +328,7 @@ export default class Example Component {
 
 <br/>
 
-### Usage Example 3 (Subscription)
+### Subscription Example Usage
 
 To create subscriptions you must first [create a product](https://developer.paypal.com/docs/subscriptions/integrate/#2-create-a-product) and [create a plan](https://developer.paypal.com/docs/subscriptions/integrate/#3-create-a-plan) using the PayPal REST API.
 
