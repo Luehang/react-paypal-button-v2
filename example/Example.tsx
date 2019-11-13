@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { PayPalButton } from "../src/index";
+import { PayPalButton } from "../lib/index";
 
 class Example extends Component<any, any> {
     constructor(props: any) {
@@ -51,6 +51,7 @@ class Example extends Component<any, any> {
                             alert("Transaction completed by " + details.payer.name.given_name);
                         });
                     }}
+                    onButtonReady={() => this.setState({ showLoading: false })}
                 /> */}
 
                 {/* <PayPalButton
@@ -61,10 +62,11 @@ class Example extends Component<any, any> {
                         });
                     }}
                     onApprove={(data, actions) => {
-                        console.log('created subscription:', data.orderID, data.subscriptionID);
-                        alert('Subscription created');
+                        console.log("created subscription:", data.orderID, data.subscriptionID);
+                        alert("Subscription created");
                     }}
                     options={{clientId: "sb", vault: true}}
+                    onButtonReady={() => this.setState({ showLoading: false })}
                 /> */}
             </div>
         );
