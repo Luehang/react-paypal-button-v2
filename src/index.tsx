@@ -10,6 +10,7 @@ export interface PayPalButtonProps {
     catchError?: Function,
     onError?: Function,
     createOrder?: Function,
+    createSubscription?: Function,
     onApprove?: Function,
     style?: object,
     options?: PaypalOptions,
@@ -51,6 +52,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
         catchError: PropTypes.func,
         onError: PropTypes.func,
         createOrder: PropTypes.func,
+        createSubscription: PropTypes.func,
         onApprove: PropTypes.func,
         style: PropTypes.object,
         options: PropTypes.shape({
@@ -161,6 +163,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             amount,
             onSuccess,
             createOrder,
+            createSubscription,
             onApprove,
             style,
         } = this.props;
@@ -178,14 +181,16 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             ReactDOM,
         });
 
+        const createOrderFn =
+            amount && !createOrder
+                ? (data: any, actions: any) => this.createOrder(data, actions)
+                : (data: any, actions: any) => createOrder(data, actions);
+
         return (
             <Button
                 {...this.props}
-                createOrder={
-                    amount && !createOrder
-                        ? (data: any, actions: any) => this.createOrder(data, actions)
-                        : (data: any, actions: any) => createOrder(data, actions)
-                }
+                createOrder={createSubscription ? undefined : createOrderFn}
+                createSubscription={createSubscription}
                 onApprove={
                     onSuccess
                         ? (data: any, actions: any) => this.onApprove(data, actions)
