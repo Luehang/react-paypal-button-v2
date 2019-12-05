@@ -105,8 +105,7 @@
         "lint": "./node_modules/.bin/eslint src/ example/",
         "test": "jest --watchAll",
         "test:once": "jest",
-        "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-        "preinstall": "rimraf dist"
+        "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls"
     },
     "license": "MIT"
 }
