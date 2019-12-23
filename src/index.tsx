@@ -202,25 +202,19 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
     }
 
     private addPaypalSdk() {
-        const { onButtonReady } = this.props;
-        let { options } = this.props;
-        const queryParams: string[] = [];
+        const { options, onButtonReady } = this.props;
 
-        Object.keys(PayPalButton.defaultProps.options).map(i => {
-            if (!options.hasOwnProperty(i)) {
-                options = Object.assign(options, {[i]:PayPalButton.defaultProps.options[i]});
-            }
-        });
-
-        // replacing camelCase with dashes
-        Object.keys(options).forEach(k => {
-            const name = k.split(/(?=[A-Z])/).join("-").toLowerCase();
-            queryParams.push(`${name}=${options[k]}`);
-        });
+        const separator = (key: string): string => key.split(/(?=[A-Z])/).join("-").toLowerCase();
+        const createQueryParam = (object: object, modifier: Function): string => Object.entries(object)
+            .reduce((acc: string [], [key, value]: [string, string]) => {
+                acc.push(`${modifier(key)}=${value}`);
+                return acc;
+            }, []).join("&");
+        const queryParam = createQueryParam({...PayPalButton.defaultProps.options, ...options}, separator);
 
         const script = document.createElement("script");
         script.type = "text/javascript";
-        script.src = `https://www.paypal.com/sdk/js?${queryParams.join("&")}`;
+        script.src = `https://www.paypal.com/sdk/js?${queryParam}`;
         script.async = true;
         script.onload = () => {
             this.setState({ isSdkReady: true });
