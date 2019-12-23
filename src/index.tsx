@@ -202,8 +202,15 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
     }
 
     private addPaypalSdk() {
-        const { options, onButtonReady } = this.props;
+        const { onButtonReady } = this.props;
+        let { options } = this.props;
         const queryParams: string[] = [];
+
+        Object.keys(PayPalButton.defaultProps.options).map(i => {
+            if (!options.hasOwnProperty(i)) {
+                options = Object.assign(options, {[i]:PayPalButton.defaultProps.options[i]});
+            }
+        });
 
         // replacing camelCase with dashes
         Object.keys(options).forEach(k => {
@@ -225,7 +232,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
         script.onerror = () => {
             throw new Error("Paypal SDK could not be loaded.");
         };
-    
+
         document.body.appendChild(script);
     }
 }
