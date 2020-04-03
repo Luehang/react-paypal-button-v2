@@ -2,6 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
+declare global {
+    interface Window { paypal: any }
+}
+
 export interface PayPalButtonProps {
     amount?: number|string,
     currency?: number|string,
