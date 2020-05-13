@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { PayPalButton } from "../lib/index";
+import { PayPalButton } from "../src/index";
 
 class Example extends Component<any, any> {
     constructor(props: any) {
