@@ -19,6 +19,8 @@ export interface PayPalButtonProps {
     style?: object,
     options?: PaypalOptions,
     onButtonReady?: Function,
+    onClick?: Function,
+    onCancel?: Function,
 }
 
 export interface PayPalButtonState {
@@ -87,6 +89,8 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             ])
         }),
         onButtonReady: PropTypes.func,
+        onClick: PropTypes.func,
+        onCancel: PropTypes.func,
     }
 
     static defaultProps = {
@@ -170,6 +174,8 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             createSubscription,
             onApprove,
             style,
+            onClick,
+            onCancel,
         } = this.props;
         const { isSdkReady } = this.state;
 
@@ -201,6 +207,8 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
                         : (data: any, actions: any) => onApprove(data, actions)
                 }
                 style={style}
+                onClick={onClick}
+                onCancel={onCancel}
             />
         );
     }
