@@ -47,8 +47,8 @@
         "rimraf": "^3.0.0"
     },
     "peerDependencies": {
-        "react": "^0.14.6 || 15.x.x || 16.x.x",
-        "react-dom": "^0.14.6 || 15.x.x || 16.x.x"
+        "react": "^0.14.6 || 15.x.x || 16.x.x || 17.x.x",
+        "react-dom": "^0.14.6 || 15.x.x || 16.x.x || 17.x.x"
     },
     "devDependencies": {
         "@babel/cli": "^7.5.5",
@@ -86,8 +86,8 @@
         "mini-css-extract-plugin": "^0.5.0",
         "optimize-css-assets-webpack-plugin": "^5.0.1",
         "path": "^0.12.7",
-        "react": "^16.8.2",
-        "react-dom": "^16.8.2",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
         "source-map-loader": "^0.2.4",
         "style-loader": "^0.23.1",
         "typescript": "^3.3.3",
