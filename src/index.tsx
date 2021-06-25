@@ -220,7 +220,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             />
         );
     }
-
+    
     private addPaypalSdk() {
         const { options, onButtonReady } = this.props;
         const queryParams: string[] = [];
@@ -230,22 +230,26 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             const name = k.split(/(?=[A-Z])/).join("-").toLowerCase();
             queryParams.push(`${name}=${options[k]}`);
         });
+        var script = document.getElementById("payPalSdk");
+            if (window.paypal && script) {
+                script.src = `https://www.paypal.com/sdk/js?${queryParams.join("&")}`;
+            } else {
+                script = document.createElement("script");
+                script.type = "text/javascript";
+                script.src = `https://www.paypal.com/sdk/js?${queryParams.join("&")}`;
+                script.id = "payPalSdk";
+                script.async = true;
+                script.onload = () => {
+                    this.setState({ isSdkReady: true });
 
-        const script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = `https://www.paypal.com/sdk/js?${queryParams.join("&")}`;
-        script.async = true;
-        script.onload = () => {
-            this.setState({ isSdkReady: true });
-
-            if (onButtonReady) {
-                onButtonReady();
+                    if (onButtonReady) {
+                        onButtonReady();
+                    }
+                };
+                script.onerror = () => {
+                    throw new Error("Paypal SDK could not be loaded.");
+                };
             }
-        };
-        script.onerror = () => {
-            throw new Error("Paypal SDK could not be loaded.");
-        };
-    
         document.body.appendChild(script);
     }
 }
