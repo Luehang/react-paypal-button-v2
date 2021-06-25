@@ -1,6 +1,6 @@
 {
     "name": "react-paypal-button-v2",
-    "version": "2.3.1",
+    "version": "2.6.3",
     "description": "An easy and simple to use React button component to implement PayPal's Checkout with Smart Payment Buttons V2 (Version 2).",
     "keywords": [
         "react-paypal-button-v2",
@@ -16,9 +16,13 @@
         "react-paypal",
         "react-component",
         "checkout-buttons",
-        "paypal buttons"
+        "paypal buttons",
+        "LueHsoft",
+        "LueH LABS",
+        "Lue Hang",
+        "luehang"
     ],
-    "homepage": "https://github.com/Luehang/react-paypal-button-v2",
+    "homepage": "https://luehangs.site/lue_hang/projects/react-paypal-button-v2",
     "author": {
         "name": "Lue Hang",
         "email": "lue_hang@hotmail.com",
@@ -39,29 +43,29 @@
     "main": "./lib/index.js",
     "types": "dist/index.d.ts",
     "dependencies": {
-        "@babel/polyfill": "^7.2.5",
-        "prop-types": "^15.7.2"
+        "prop-types": "^15.7.2",
+        "rimraf": "^3.0.0"
     },
     "peerDependencies": {
-        "react": "^0.14.6 || 15.x.x || 16.x.x",
-        "react-dom": "^0.14.6 || 15.x.x || 16.x.x"
+        "react": "^0.14.6 || 15.x.x || 16.x.x || 17.x.x",
+        "react-dom": "^0.14.6 || 15.x.x || 16.x.x || 17.x.x"
     },
     "devDependencies": {
-        "@babel/cli": "^7.2.3",
-        "@babel/core": "^7.3.3",
-        "@babel/plugin-proposal-class-properties": "^7.3.3",
-        "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
+        "@babel/cli": "^7.5.5",
+        "@babel/core": "^7.5.5",
+        "@babel/plugin-proposal-class-properties": "^7.5.5",
+        "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
         "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-        "@babel/preset-env": "^7.3.1",
+        "@babel/preset-env": "^7.5.5",
         "@babel/preset-react": "^7.0.0",
         "@babel/preset-typescript": "^7.3.3",
-        "@types/enzyme": "^3.1.18",
-        "@types/enzyme-adapter-react-16": "^1.0.4",
+        "@types/enzyme": "^3.10.3",
+        "@types/enzyme-adapter-react-16": "^1.0.5",
         "@types/jest": "^23.3.14",
         "@types/node": "^11.9.4",
-        "@types/react": "^16.8.3",
-        "@types/react-dom": "^16.8.1",
-        "@types/webpack-env": "^1.13.7",
+        "@types/react": "^16.9.2",
+        "@types/react-dom": "^16.8.5",
+        "@types/webpack-env": "^1.14.0",
         "@typescript-eslint/eslint-plugin": "1.4.0",
         "@typescript-eslint/parser": "1.4.0",
         "babel-core": "^6.26.3",
@@ -82,8 +86,8 @@
         "mini-css-extract-plugin": "^0.5.0",
         "optimize-css-assets-webpack-plugin": "^5.0.1",
         "path": "^0.12.7",
-        "react": "^16.8.2",
-        "react-dom": "^16.8.2",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
         "source-map-loader": "^0.2.4",
         "style-loader": "^0.23.1",
         "typescript": "^3.3.3",
@@ -93,7 +97,7 @@
         "webpack-dev-server": "^3.1.14"
     },
     "scripts": {
-        "build": "rm -rf dist lib && npm run build:types && npm run build:js",
+        "build": "rimraf dist lib && npm run build:types && npm run build:js",
         "build:types": "tsc --emitDeclarationOnly",
         "build:js": "babel src --out-dir lib --extensions \".tsx\" --ignore \"**/*.test.tsx\" --source-maps inline",
         "build:bundle": "webpack-cli --config ./webpack.config.js --mode production",
@@ -101,8 +105,7 @@
         "lint": "./node_modules/.bin/eslint src/ example/",
         "test": "jest --watchAll",
         "test:once": "jest",
-        "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-        "preinstall": "rm -rf dist"
+        "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls"
     },
     "license": "MIT"
 }

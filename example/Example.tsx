@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { PayPalButton } from "../src/index";
+import { PayPalButton } from "../lib/index";
 
 class Example extends Component<any, any> {
     constructor(props: any) {
@@ -24,11 +24,11 @@ class Example extends Component<any, any> {
 
                 <PayPalButton
                     amount="0.01"
+                    // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                     onSuccess={(details) => {
                         return alert("Transaction completed by " + details.payer.name.given_name)
                     }}
                     onButtonReady={() => this.setState({ showLoading: false })}
-                    options={{clientId: "sb"}}
                 />
 
                 {/* <PayPayButton
@@ -38,7 +38,10 @@ class Example extends Component<any, any> {
                                 amount: {
                                 value: "0.01"
                                 }
-                            }]
+                            }],
+                            // application_context: {
+                            //   shipping_preference: "NO_SHIPPING" // default is "GET_FROM_FILE"
+                            // }
                         });
                     }}
                     onApprove={(data, actions) => {
@@ -48,6 +51,22 @@ class Example extends Component<any, any> {
                             alert("Transaction completed by " + details.payer.name.given_name);
                         });
                     }}
+                    onButtonReady={() => this.setState({ showLoading: false })}
+                /> */}
+
+                {/* <PayPalButton
+                    createSubscription={(data, actions) => {
+                        return actions.subscription.create({
+                            plan_id: "P-XXXXXXXXXXXXXXXXXXXXXXXX",
+                            auto_renewal: true
+                        });
+                    }}
+                    onApprove={(data, actions) => {
+                        console.log("created subscription:", data.orderID, data.subscriptionID);
+                        alert("Subscription created");
+                    }}
+                    options={{clientId: "sb", vault: true}}
+                    onButtonReady={() => this.setState({ showLoading: false })}
                 /> */}
             </div>
         );

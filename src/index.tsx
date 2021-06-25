@@ -1,20 +1,27 @@
-import "@babel/polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
+declare global {
+    interface Window { paypal: any }
+}
+
 export interface PayPalButtonProps {
     amount?: number|string,
     currency?: number|string,
+    shippingPreference?: "NO_SHIPPING" | "GET_FROM_FILE" | "SET_PROVIDED_ADDRESS",
     onSuccess?: Function,
     catchError?: Function,
     onError?: Function,
     createOrder?: Function,
+    createSubscription?: Function,
     onApprove?: Function,
     style?: object,
     options?: PaypalOptions,
     onButtonReady?: Function,
     onShippingChange?: Function,
+    onClick?: Function,
+    onCancel?: Function,
 }
 
 export interface PayPalButtonState {
@@ -47,10 +54,12 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             PropTypes.number,
             PropTypes.string,
         ]),
+        shippingPreference: PropTypes.string,
         onSuccess: PropTypes.func,
         catchError: PropTypes.func,
         onError: PropTypes.func,
         createOrder: PropTypes.func,
+        createSubscription: PropTypes.func,
         onApprove: PropTypes.func,
         style: PropTypes.object,
         options: PropTypes.shape({
@@ -81,6 +90,8 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             ])
         }),
         onButtonReady: PropTypes.func,
+        onClick: PropTypes.func,
+        onCancel: PropTypes.func,
     }
 
     static defaultProps = {
@@ -89,6 +100,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             clientId: "sb",
             currency: "USD"
         },
+        shippingPreference: "GET_FROM_FILE",
     }
 
     constructor(props: PayPalButtonProps) {
@@ -101,12 +113,14 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
 
     componentDidMount() {
         if (
+            typeof window !== "undefined" &&
             window !== undefined &&
             window.paypal === undefined
         ) {
             this.addPaypalSdk();
         }
         else if (
+            typeof window !== "undefined" &&
             window !== undefined &&
             window.paypal !== undefined &&
             this.props.onButtonReady
@@ -116,19 +130,26 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
     }
 
     createOrder(data: any, actions: any) {
-        return actions.order
-            .create({
-                purchase_units: [{
-                    amount: {
-                        currency_code: this.props.currency
-                            ? this.props.currency
-                            : this.props.options && this.props.options.currency
-                            ? this.props.options.currency
-                            : "USD",
-                        value: this.props.amount.toString()
-                    },
-                }]
-            });
+
+        const { currency, options, amount, shippingPreference } = this.props;
+
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                currency_code: currency
+                  ? currency
+                  : options && options.currency
+                  ? options.currency
+                  : "USD",
+                value: amount.toString()
+              }
+            }
+          ],
+          application_context: {
+            shipping_preference: shippingPreference
+          }
+        });
     }
 
     onApprove(data: any, actions: any) {
@@ -151,13 +172,19 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             amount,
             onSuccess,
             createOrder,
+            createSubscription,
             onApprove,
             style,
             onShippingChange,
+            onClick,
+            onCancel,
         } = this.props;
         const { isSdkReady } = this.state;
 
-        if (!isSdkReady && window.paypal === undefined) {
+        if (
+            !isSdkReady &&
+            (typeof window === "undefined" || window.paypal === undefined)
+        ) {
             return null;
         }
 
@@ -166,20 +193,24 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             ReactDOM,
         });
 
+        const createOrderFn =
+            amount && !createOrder
+                ? (data: any, actions: any) => this.createOrder(data, actions)
+                : (data: any, actions: any) => createOrder(data, actions);
+
         return (
             <Button
                 {...this.props}
-                createOrder={
-                    amount && !createOrder
-                        ? (data: any, actions: any) => this.createOrder(data, actions)
-                        : (data: any, actions: any) => createOrder(data, actions)
-                }
+                createOrder={createSubscription ? undefined : createOrderFn}
+                createSubscription={createSubscription}
                 onApprove={
                     onSuccess
                         ? (data: any, actions: any) => this.onApprove(data, actions)
                         : (data: any, actions: any) => onApprove(data, actions)
                 }
                 style={style}
+                onClick={onClick}
+                onCancel={onCancel}
             />
         );
     }

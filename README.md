@@ -11,7 +11,7 @@
 <br/>
 <br/>
 <br/>
-<a href="https://luehangs.site"><img src="https://luehangs.site/images/lh-blog-strip.jpg" alt="LH LABS"/></a>
+<a href="https://luehangs.site"><img src="https://luehangs.site/images/lh-blog-strip.jpg" alt="LueHsoft LueH LABS Lue Hang luehang"/></a>
 <br/>
 <br/>
 <br/>
@@ -49,7 +49,7 @@ Once you have your account set up, you will have 2 different sets of credentials
 <br/>
 <br/>
 <br/>
-<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LH LABS"/></a>
+<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LueHsoft LueH LABS Lue Hang luehang"/></a>
 <br/>
 <br/>
 <br/>
@@ -91,6 +91,7 @@ export default class Example Component {
     return (
       <PayPalButton
         amount="0.01"
+        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
         onSuccess={(details, data) => {
           alert("Transaction completed by " + details.payer.name.given_name);
 
@@ -109,6 +110,8 @@ export default class Example Component {
 ```
 
 For alternative usage, go to the [Alternative Usage Example Section](#large_blue_diamond-alternative-usage-example).
+
+To create subscriptions, go to the [Subscriptions Example Section](#subscription-example-usage).
 
 <br/>
 <br/>
@@ -133,6 +136,7 @@ export default class Example Component {
     return (
       <PayPalButton
         amount="0.01"
+        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
         onSuccess={(details, data) => {
           alert("Transaction completed by " + details.payer.name.given_name);
 
@@ -155,9 +159,11 @@ export default class Example Component {
 
 For alternative usage, go to the [Alternative Production Example Section](#large_blue_diamond-alternative-production-example).
 
+To create subscriptions, go to the [Subscriptions Example Section](#subscription-example-usage).
+
 <br/>
 <br/>
-<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LH LABS"/></a>
+<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LueHsoft LueH LABS Lue Hang luehang"/></a>
 <br/>
 <br/>
 
@@ -173,6 +179,7 @@ For alternative usage, go to the [Alternative Production Example Section](#large
 |-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|---------|
 | `amount`                     | The amount value of the transaction. | `string` or `number` |  |
 | `currency`                   | The currency of the transaction. | `string` | "USD" |
+| `shippingPreference`         | The shipping preference: Displays the shipping address to the customer. Enables the customer to choose an address on the PayPal site. Restricts the customer from changing the address during the payment-approval process. Options: `NO_SHIPPING`, `GET_FROM_FILE`, `SET_PROVIDED_ADDRESS` | `string` | "NO_SHIPPING" |
 | `onSuccess`                  | The successful completion of the transaction. `(details: object, data: object) => void` | `Function` |  |
 | `catchError`                 | Transaction declined or errored. `(err: object) => void` | `Function` |  |
 | `options`                    | You can customize the integration by passing different query parameters/fieldnames into the `options` prop object which will pass it to `https://paypal.com/sdk/js`. These parameters help PayPal decide the optimal funding sources and buttons to show to your buyers.  **Before configuring the `options` prop, make sure you haven't manually added the script tag for `https://paypal.com/sdk/js`.** For a list of parameters/fieldnames, go to section [`options` Prop Fieldnames/Parameters](#small_blue_diamond-options-prop-fieldnames-or-parameters). | `object` | `{clientId: "sb", currency: "USD"}` |
@@ -180,8 +187,10 @@ For alternative usage, go to the [Alternative Production Example Section](#large
 | `onError`                    | If an error prevents buyer checkout. This error handler is a catch-all. Errors at this point are not expected to be handled beyond showing a generic error message or page. `(err: object) => void` | `Function` |  |
 | `createOrder`                | A function called when the buyer clicks the PayPal button. Calls PayPal using the `actions.order.create()` to set up the details of the transaction. `(data: object, actions: object) => void` | `Function` |  |
 | `onApprove`                  | A function called when the buyer approves the transaction on paypal.com. Calls PayPal using the `actions.order.capture()` to capture the funds from the transaction.  Optionally calls PayPal using `actions.order.get()` to get the transaction details. `(data: object, actions: object) => void` | `Function` |  |
+| `createSubscription`         | A function that calls the PayPal subscription using the `actions.subscription.create()` to set up the details of the transaction. [Subscriptions Example Section](#subscription-example-usage). `(data: object, actions: object) => void` | `Function` |  |
 | `style`                      | PayPal Checkout offers several style options that you can use to customize the look and feel of your Smart Payment Button. You can also display multiple funding sources to the buyer, when appropriate. See more on what to input in the style object at [Customize the PayPal Buttons page](https://developer.paypal.com/docs/checkout/integration-features/customize-button/). | `object` | {} |
 | `onShippingChange`           | A function called when the buyer initially logs into their account, submits their billing/payment information, or makes a change to their shipping address on the review your payment page. `(data: { paymentToken: string, shipping_address: object, selected_shipping_method: string }, actions: { resolve: Function, reject: Function, order: Function }) => Function` | `Function` |  |
+| `onClick`                    | A function called on PayPal button click. Can be used for validation. `(data: object, actions: object) => void` | `Function` |  |
 | `onCancel`                   | Show a cancellation page or return to the shopping cart. `(data: object) => void` | `Function` |  |
 
 :information_source: Learn more about the integration proccess along with more props and advance use cases starting at [PayPal's docs](https://developer.paypal.com/docs/checkout/integrate/).
@@ -204,7 +213,7 @@ Option | Description | Type | Default
 `clientId` | Your PayPal REST client ID. While you're testing in sandbox, you can use `client-id=sb` as a shortcut. | `string` | `"sb"`
 `currency` | The currency of the transaction. | `string` | `"USD"`
 `merchantId` | The merchant for who you are facilitating a transaction. | `string` | automatic
-`intent` | The currency of the transaction. | `string` | `"capture"`
+`intent` | The intent of the payment. | `string` | `"capture"`
 `commit` | Set to `true` if the transaction is Pay Now, or `false` if the amount captured changes after the buyer returns to your site. | `boolean` or `string` | `true`
 `vault` | Set to `true` if the transaction sets up a billing agreement, or uses a vault. | `boolean` or `string` | `false`
 `components` | A comma-separated list of components to enable. Defaults to allow Smart Payment Buttons. Other components are optional. | `string` | `buttons`
@@ -220,7 +229,7 @@ Option | Description | Type | Default
 <br/>
 <br/>
 <br/>
-<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LH LABS"/></a>
+<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LueHsoft LueH LABS Lue Hang luehang"/></a>
 <br/>
 <br/>
 <br/>
@@ -245,7 +254,10 @@ export default class Example Component {
                 currency_code: "USD",
                 value: "0.01"
               }
-            }]
+            }],
+            // application_context: {
+            //   shipping_preference: "NO_SHIPPING" // default is "GET_FROM_FILE"
+            // }
           });
         }}
         onApprove={(data, actions) => {
@@ -298,6 +310,7 @@ export default class Example Component {
     return (
       <PayPalButton
         amount="0.01"
+        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
         onSuccess={(details, data) => {
           alert("Transaction completed by " + details.payer.name.given_name);
 
@@ -307,6 +320,49 @@ export default class Example Component {
             body: JSON.stringify({
               orderID: data.orderID
             })
+          });
+        }}
+      />
+    );
+  }
+}
+```
+
+<br/>
+
+### Subscription Example Usage
+
+To create subscriptions you must first [create a product](https://developer.paypal.com/docs/subscriptions/integrate/#2-create-a-product) and [create a plan](https://developer.paypal.com/docs/subscriptions/integrate/#3-create-a-plan) using the PayPal REST API.
+
+<br/>
+
+```javascript
+import { PayPalButton } from "react-paypal-button-v2";
+
+export default class Example Component {
+  render() {
+    return (
+      <PayPalButton
+        options={{vault: true}}
+        createSubscription={(data, actions) => {
+          return actions.subscription.create({
+            plan_id: 'P-XXXXXXXXXXXXXXXXXXXXXXXX'
+          });
+        }}
+        onApprove={(data, actions) => {
+          // Capture the funds from the transaction
+          return actions.subscription.get().then(function(details) {
+            // Show a success message to your buyer
+            alert("Subscription completed");
+
+            // OPTIONAL: Call your server to save the subscription
+            return fetch("/paypal-subscription-complete", {
+              method: "post",
+              body: JSON.stringify({
+                orderID: data.orderID,
+                subscriptionID: data.subscriptionID
+              })
+            });
           });
         }}
       />
@@ -351,6 +407,7 @@ export default class Example Component {
     return (
       <PayPalButton
         amount="0.01"
+        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
         onSuccess={(details, data) => {
           alert("Transaction completed by " + details.payer.name.given_name);
 
@@ -371,7 +428,7 @@ export default class Example Component {
 <br/>
 <br/>
 <br/>
-<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LH LABS"/></a>
+<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LueHsoft LueH LABS Lue Hang luehang"/></a>
 <br/>
 <br/>
 <br/>
@@ -406,7 +463,7 @@ $ npm run start
 <br/>
 <br/>
 <br/>
-<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LH LABS"/></a>
+<a href="https://luehangs.site/marketplace/product/RN%20Posting%20Demo%20App%20Kit"><img src="https://luehangs.site/images/lh-mobile-strip.jpg" alt="LueHsoft LueH LABS Lue Hang luehang"/></a>
 <br/>
 <br/>
 <br/>
