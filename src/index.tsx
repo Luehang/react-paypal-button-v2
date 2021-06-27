@@ -187,7 +187,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
         const { isSdkReady } = this.state;
 
         if (
-            !isSdkReady &&
+            !isSdkReady ||
             (typeof window === "undefined" || window.paypal === undefined)
         ) {
             return null;
