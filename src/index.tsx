@@ -15,10 +15,12 @@ export interface PayPalButtonProps {
     onError?: Function,
     createOrder?: Function,
     createSubscription?: Function,
+    createBillingAgreement?: Function,
     onApprove?: Function,
     style?: object,
     options?: PaypalOptions,
     onButtonReady?: Function,
+    onShippingChange?: Function,
     onClick?: Function,
     onCancel?: Function,
 }
@@ -37,6 +39,7 @@ export interface PaypalOptions {
     component?: string,
     disableFunding?: string,
     disableCard?: string,
+    enableFunding?: string,
     integrationDate?: string,
     locale?: string,
     buyerCountry?: string,
@@ -59,6 +62,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
         onError: PropTypes.func,
         createOrder: PropTypes.func,
         createSubscription: PropTypes.func,
+        createBillingAgreement: PropTypes.func,
         onApprove: PropTypes.func,
         style: PropTypes.object,
         options: PropTypes.shape({
@@ -80,6 +84,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             component: PropTypes.string,
             disableFunding: PropTypes.string,
             disableCard: PropTypes.string,
+            enableFunding: PropTypes.string,
             integrationDate: PropTypes.string,
             locale: PropTypes.string,
             buyerCountry: PropTypes.string,
@@ -172,8 +177,10 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             onSuccess,
             createOrder,
             createSubscription,
+            createBillingAgreement,
             onApprove,
             style,
+            onShippingChange,
             onClick,
             onCancel,
         } = this.props;
@@ -199,8 +206,9 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
         return (
             <Button
                 {...this.props}
-                createOrder={createSubscription ? undefined : createOrderFn}
+                createOrder={(createSubscription || createBillingAgreement) ? undefined : createOrderFn}
                 createSubscription={createSubscription}
+                createBillingAgreement={createBillingAgreement}
                 onApprove={
                     onSuccess
                         ? (data: any, actions: any) => this.onApprove(data, actions)
