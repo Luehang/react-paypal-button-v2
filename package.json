@@ -62,10 +62,10 @@
         "@types/enzyme": "^3.10.3",
         "@types/enzyme-adapter-react-16": "^1.0.5",
         "@types/jest": "^23.3.14",
-        "@types/node": "^11.9.4",
+        "@types/node": "^17.0.23",
         "@types/react": "^16.9.2",
         "@types/react-dom": "^16.8.5",
-        "@types/webpack-env": "^1.14.0",
+        "@types/webpack-env": "^1.16.3",
         "@typescript-eslint/eslint-plugin": "1.4.0",
         "@typescript-eslint/parser": "1.4.0",
         "babel-core": "^6.26.3",
@@ -92,9 +92,9 @@
         "style-loader": "^0.23.1",
         "typescript": "^3.3.3",
         "uglifyjs-webpack-plugin": "^2.1.1",
-        "webpack": "^4.29.4",
-        "webpack-cli": "^3.2.3",
-        "webpack-dev-server": "^3.1.14"
+        "webpack": "^4.46.0",
+        "webpack-cli": "^3.3.12",
+        "webpack-dev-server": "^3.11.3"
     },
     "scripts": {
         "build": "rimraf dist lib && npm run build:types && npm run build:js",
