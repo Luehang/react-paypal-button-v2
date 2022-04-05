@@ -222,7 +222,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
     }
 
     private addPaypalSdk() {
-        const { options, onButtonReady } = this.props;
+        const { options, onButtonReady, onError } = this.props;
         const queryParams: string[] = [];
 
         // replacing camelCase with dashes
@@ -243,7 +243,12 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
             }
         };
         script.onerror = () => {
-            throw new Error("Paypal SDK could not be loaded.");
+            const error = new Error("Paypal SDK could not be loaded.");
+            if (onError) {
+                onError(error);
+            } else {
+                throw error;
+            }
         };
     
         document.body.appendChild(script);
