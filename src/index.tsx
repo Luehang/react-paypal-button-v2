@@ -223,17 +223,18 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
 
     private addPaypalSdk() {
         const { options, onButtonReady } = this.props;
-        const queryParams: string[] = [];
 
-        // replacing camelCase with dashes
-        Object.keys(options).forEach(k => {
-            const name = k.split(/(?=[A-Z])/).join("-").toLowerCase();
-            queryParams.push(`${name}=${options[k]}`);
-        });
+        const separator = (key: string): string => key.split(/(?=[A-Z])/).join("-").toLowerCase();
+        const createQueryParam = (object: object, modifier: Function): string => Object.entries(object)
+            .reduce((acc: string [], [key, value]: [string, string]) => {
+                acc.push(`${modifier(key)}=${value}`);
+                return acc;
+            }, []).join("&");
+        const queryParam = createQueryParam({...PayPalButton.defaultProps.options, ...options}, separator);
 
         const script = document.createElement("script");
         script.type = "text/javascript";
-        script.src = `https://www.paypal.com/sdk/js?${queryParams.join("&")}`;
+        script.src = `https://www.paypal.com/sdk/js?${queryParam}`;
         script.async = true;
         script.onload = () => {
             this.setState({ isSdkReady: true });
@@ -245,7 +246,7 @@ class PayPalButton extends React.Component<PayPalButtonProps, PayPalButtonState>
         script.onerror = () => {
             throw new Error("Paypal SDK could not be loaded.");
         };
-    
+
         document.body.appendChild(script);
     }
 }
