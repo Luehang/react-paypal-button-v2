@@ -1,6 +1,6 @@
 {
     "name": "react-paypal-button-v2",
-    "version": "2.6.3",
+    "version": "2.7.0",
     "description": "An easy and simple to use React button component to implement PayPal's Checkout with Smart Payment Buttons V2 (Version 2).",
     "keywords": [
         "react-paypal-button-v2",
